@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Body Mass Index (BMI) Calculator</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Body Mass Index (BMI) Calculator">
+  <meta name="author" content="Jon Ide">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Body Mass Index (BMI) Calculator</h1>
+    <h2>A calculator for Body Mass Index (BMI) to demonstrate shiny and slidify.</h2>
+    <p>Jon Ide<br/>Coursera Student</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Body Mass Index</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>According to Wikipedia:</h3>
+
+<p>&quot;The body mass index (BMI) or Quetelet index is a value derived from the mass (weight) and height of an individual. The BMI is defined as the body mass divided by the square of the body height, and is universally expressed in units of kg/m2, resulting from mass in kilograms and height in metres.&quot;</p>
+
+<p>For a largely American audience, we will use pounds and inches instead, which requires multiplying weight divided by the square of height by a factor of 703.</p>
+
+<p><b>Just enter your weight in pounds and height in inches, and the BMI Calculator does the rest!</b></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Interpretation of BMI</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The shiny app takes height in inches and weight in pounds, calculates and displays the BMI, and also displays an interpretation of the BMI. The interpretation used in the app is one that applies to average adults of European descent. For people of Asian descent, for example, or for children, a different interpretation would need to be used.</p>
+
+<p>The interpretation:<br>
+BMI &lt; 18.5: underweight<br>
+BMI 18.5 - 25.0: normal<br>
+BMI 25.0 - 30.0: overweight<br>
+BMI &gt; 30.0: obese.</p>
+
+<p>Note that people with greater-than-average amounts of muscle (athletes, for example) often have BMI values that would classify them as overweight or even obese, when they are anything but.</p>
+
+<h3><span style="color:red">Where do you stand? Use the BMI Calculator to find out!</span></h3>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>R Code</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We define an R function to calculate BMI, as follows:</p>
+
+<pre><code class="r">bmi &lt;- function(inches, pounds) round(pounds / inches^2 * 703, digits=1)
+</code></pre>
+
+<p>And for the interpretation of BMI, we define:</p>
+
+<pre><code class="r">interpretation &lt;- function(bmi) {
+  if (bmi &lt; 18.5) {
+    status &lt;- &#39;Underweight&#39;
+  } else if (bmi &lt; 25) {
+    status &lt;- &#39;Normal or Healthy Weight&#39;
+  } else if (bmi &lt; 30) {
+    status &lt;- &#39;Overweight&#39;
+  } else {
+    status &lt;- &#39;Obese&#39;
+  }
+  paste0(&#39;Your BMI (&#39;, bmi, &#39;) has interpretation: &#39;, status, collapse)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Sample Calculations</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>George Clooney is 71 inches tall and weighs 172 pounds. What&#39;s his BMI?</p>
+
+<pre><code class="r">interpretation(bmi(71, 172))
+</code></pre>
+
+<pre><code>## [1] &quot;Your BMI ( 24 ) has interpretation:  Normal or Healthy Weight&quot;
+</code></pre>
+
+<p><p>
+Dwayne Johnson (&quot;The Rock&quot;) is 74 inches tall and weighs 260 pounds. His BMI:</p>
+
+<pre><code class="r">interpretation(bmi(74, 260))
+</code></pre>
+
+<pre><code>## [1] &quot;Your BMI ( 33.4 ) has interpretation:  Obese&quot;
+</code></pre>
+
+<p>This is an example of the effect mentioned earlier: BMI can be very misleading for people with a lot of muscle. I choose to believe that explains my BMI! :-)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Body Mass Index'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Interpretation of BMI'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='R Code'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Sample Calculations'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
